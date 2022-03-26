@@ -27,6 +27,8 @@ class Baekjoon2667 {
 	static int[] res; //결과 값 저장된 배열
 	static ArrayList<Integer> res2; //결과 값 저장된 배열
 	static int cnt;
+	static int cnt2;
+	static ArrayList<Integer> res1; //결과 값 저장된 배열
 	
 	public static void main(String[] args) throws IOException{
         BufferedReader bf = new BufferedReader(new InputStreamReader(System.in));
@@ -37,6 +39,9 @@ class Baekjoon2667 {
         A = new int[N][N];
         visited = new boolean[N][N];
         res2 = new ArrayList<Integer>();
+        res1 = new ArrayList<Integer>();
+        
+        
         
         for(int i=0; i<N; i++) {
         	String str = bf.readLine();
@@ -54,13 +59,33 @@ class Baekjoon2667 {
         		}
         	}
         }
+        visited = new boolean[N][N];
+        for(int i=0; i<N; i++) {
+        	for(int j=0; j<N; j++) {
+        		if(A[i][j]>=1 && !visited[i][j]) {
+        			cnt2=0;
+        			bfs(i, j, visited);
+        			res1.add(cnt2);
+        		}
+        	}
+        }
+        
+        
+        System.out.println("*******dfs*******");
         System.out.println(res2.size());
         Collections.sort(res2);
         for(int i=0; i<res2.size(); i++) {
         	System.out.println(res2.get(i));
         }
         
+        System.out.println("*******bfs*******");
+        System.out.println(res1.size());
+        Collections.sort(res1);
+        for(int i=0; i<res1.size(); i++) {
+        	System.out.println(res1.get(i));
+        }
     }
+	
 	private static void dfs(int x, int y, boolean[][] v) {
 		cnt++;
 		if(v[x][y]) return;
@@ -72,6 +97,27 @@ class Baekjoon2667 {
 				if(A[nx][ny]==1) {
 					dfs(nx, ny, v);	
 				} 
+			}
+		}
+	}
+	
+	private static void bfs(int x, int y, boolean[][] v) {
+		Queue<int[]> queue = new LinkedList<>();
+		v[x][y] = true;
+		queue.offer(new int[] {x,y});
+		cnt2++;
+		while(!queue.isEmpty()) {
+			int[] t = queue.poll();
+			for(int i=0; i<4; i++) {
+				int nx = t[0]+dx[i];
+				int ny = t[1]+dy[i];
+				if(nx>=0&&nx<N&&ny>=0&&ny<N&&!v[nx][ny]) {
+					if(A[nx][ny]==1) {
+						cnt2++;
+						v[nx][ny] = true;
+						queue.offer(new int[] {nx,ny});
+					} 
+				}
 			}
 		}
 	}
