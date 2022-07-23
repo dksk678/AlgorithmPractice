@@ -1,7 +1,6 @@
 import java.io.*;
 import java.util.*;
 /*   2048(easy) 180~~
- * 	
  * 	 한번 합쳐진 번호는 불가능
  * 	 백트래킹, 구현
  *   오른쪽으로 가는건 오른쪽 블럭 부터 아래로 가는건 아래쪽 블럭 부터
@@ -29,17 +28,19 @@ class Baekjoon12100 {
     		st = new StringTokenizer(br.readLine());
     		for (int j = 0; j < N; j++) {
     			int n = Integer.parseInt(st.nextToken());
-    			
 				arr[i][j] = n;
+				if(n==0) continue;
+
+				max = max<n?n:max;
 			}
     	}
     	DFS(0, arr);
+    	
     	System.out.println(max);
 	}
-	
-	
+    
 	private static void DFS(int cnt, int[][] arr2) {
-		if(cnt==3) {
+		if(cnt==5) {
 			max = Math.max(max, getMax(arr2));
 			print(arr2);
 			return;
@@ -77,15 +78,14 @@ class Baekjoon12100 {
 					for (int k = 0; k < N; k++) {
 						if(arr3[j][k]==0) continue;
 						arr3 = combine(j, k, i, arr3);
-						
 					}
 				}
 			}
 			DFS(cnt+1,arr3);
 		}
 	}
-	
- 	private static boolean chkNum(int[][] arr) { //남은 숫자 중 한 숫자라도 2개 이상일 때 더 큰 수를 찾을 수 있음.
+	//남은 숫자 중 중복 되는 숫자 없으면 안됨!
+ 	private static boolean chkNum(int[][] arr) {
     	HashMap<Integer, Integer> num = new HashMap<Integer, Integer>();
 		for (int i = 0; i < N; i++) {
 			for(int j=0; j < N; j++) {
@@ -98,11 +98,9 @@ class Baekjoon12100 {
 				}
 			}
 		}
-		
 		for(int i:num.values()) {
 			if(i>=2) return true;
 		}
-		
 		return false;
 	}
 
@@ -115,13 +113,13 @@ class Baekjoon12100 {
 		}
 		return m;
 	}
-
+    //합치기
 	private static int[][] combine(int i, int j, int idx, int[][] arr2) {
 		int nr = i;
 		int nc = j;
 		int cur = arr2[i][j];
 		int next = 0;
-		//다른 수 나오기 전까지 쭉 진행
+        //다른 수 나오기 전까지 쭉 진행
 		while(!check(nr+dr[idx], nc+dc[idx])) {
 			nr +=dr[idx];
 			nc +=dc[idx];
@@ -137,22 +135,20 @@ class Baekjoon12100 {
 			v[nr][nc] = true;
 			arr2[nr][nc] = cur;
 			arr2[i][j] = 0;
-		} else if(arr2[nr][nc]==0) {//0이면 자리 체크 안하고 넣기
+		} else if(arr2[nr][nc]==0) { //0이면 자리 체크 안하고 넣기
+			arr2[i][j] = 0;
 			arr2[nr][nc] = cur;
+		} else if(v[nr][nc]) { //체크된 곳이면 전위치에 넣기
 			arr2[i][j] = 0;
-		} else if(v[nr][nc]) {//체크된 곳이면 전위치에 넣기
 			arr2[nr-dr[idx]][nc-dc[idx]] = cur;
+		} else if(next!=cur) { //시작지점이 아니고 같은 숫자도 아니면 
 			arr2[i][j] = 0;
-		} else if(next!=cur) { 
-			if(i!=nr-dr[idx]||j!=nc-dc[idx]) {//시작지점이 아니고 같은 숫자도 아니면 
-				arr2[nr-dr[idx]][nc-dc[idx]] = cur;
-				arr2[i][j] = 0;
-			}
+			arr2[nr-dr[idx]][nc-dc[idx]] = cur; //넣기
+			
 		}
 		
 		return arr2;
 	}
-	
 
 	private static boolean check(int i, int j) {
 		if(i<0||i>=N||j<0||j>=N) return true;
@@ -160,10 +156,6 @@ class Baekjoon12100 {
 		return false;
 	}
 	
-
-
-
-	//######### arr_print #########################
 	static void print(int[][] arr) {
 		for(int[] i:arr) {
 			for(int j:i) {
@@ -172,12 +164,5 @@ class Baekjoon12100 {
 			System.out.println("");
 		}
 		System.out.println("-----------");
-	}
-	static void print(int[] arr) {
-		for(int i:arr) {
-			System.out.print(i +" ");
-
-		}
-		System.out.println("");
 	}
 }
