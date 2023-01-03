@@ -17,21 +17,21 @@ class Solution {
         map.put("eight", 8);
         map.put("nine", 9);
         
-        String[] stringNumber = {"zero", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine"};
+//         String[] stringNumber = {"zero", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine"};
         
         
-        for(int i=0; i<10; i++){
-            if(s.contains(stringNumber[i])){
-                s = s.replaceAll(stringNumber[i], i+"");
+//         for(int i=0; i<10; i++){
+//             if(s.contains(stringNumber[i])){
+//                 s = s.replaceAll(stringNumber[i], i+"");
+//             }
+//         }
+        
+        
+        for(String k: map.keySet()){ 
+            if(s.contains(k)){ //문자열에 해당 키값이 포함되어있으면
+                s = s.replaceAll(k, map.get(k).toString()); //숫자로 replace
             }
         }
-        
-        
-        // for(String k: map.keySet()){ //
-        //     if(s.contains(k)){
-        //         s = s.replaceAll(k, map.get(k).toString());
-        //     }
-        // }
         
         answer = Integer.parseInt(s);
         return answer;
