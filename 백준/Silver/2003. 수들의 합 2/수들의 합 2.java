@@ -2,6 +2,7 @@ import java.io.*;
 import java.util.*;
 
 public class Main {
+
 	public static void main(String[] args) throws Exception{
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		StringTokenizer st;
@@ -20,24 +21,19 @@ public class Main {
 		int start = 0;
 		int end = 0;
 		
-		int sum = arr[0];
+		int sum = 0;
 		int ans = 0;
 		
 		while(start < n) {
-			if(sum == m) {
-				ans++;
-				if(start == end && end < n-1) {
-					sum += arr[++end];
-				} else {
-					sum -= arr[start++];
-				}
-			} else if (sum > m) {
+			if (sum >= m) {
 				sum -= arr[start++];
-			} else if(end < n-1){
-				sum += arr[++end];
+			} else if(end == n){
+				break;
 			} else {
-				sum -= arr[start++];
+				sum += arr[end++];
 			}
+			
+			if(sum == m) ans++;
 		}
 		
 		System.out.println(ans);
