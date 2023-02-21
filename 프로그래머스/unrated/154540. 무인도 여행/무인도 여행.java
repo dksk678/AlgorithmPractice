@@ -33,9 +33,10 @@ class Solution {
             days.add(-1);
         }
         
-        Collections.sort(days);
+//         Collections.sort(days);
+//         return days.stream().mapToInt(i->i).toArray();
         
-        return days.stream().mapToInt(i->i).toArray();
+        return days.stream().sorted().mapToInt(i->i).toArray();
     }
     
     
