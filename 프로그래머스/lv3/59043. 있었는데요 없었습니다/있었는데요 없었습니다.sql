@@ -1,0 +1,11 @@
+-- 코드를 입력하세요
+SELECT I.ANIMAL_ID, I.NAME
+FROM ANIMAL_INS I JOIN ANIMAL_OUTS O
+ON I.ANIMAL_ID = O.ANIMAL_ID
+WHERE I.DATETIME > O.DATETIME
+ORDER BY I.DATETIME
+
+
+
+# 보호 시작일 보다 입양일이 더 빠른 경우.
+# -> JOIN으로 테이블 묶은 후 
