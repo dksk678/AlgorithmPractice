@@ -1,6 +1,6 @@
 # [level 2] 카테고리 별 상품 개수 구하기 - 131529 
 
-[문제 링크](https://school.programmers.co.kr/learn/courses/30/lessons/131529) 
+[문제 링크](https://school.programmers.co.kr/learn/courses/30/lessons/131529#qna) 
 
 ### 성능 요약
 
@@ -16,7 +16,7 @@ Empty
 
 ### 제출 일자
 
-2023년 10월 4일 23:56:30
+2023년 10월 4일 23:58:35
 
 ### 문제 설명
 
