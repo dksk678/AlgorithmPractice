@@ -24,30 +24,12 @@ class Solution {
                 k--;
             }
             
-            stack.push(number.charAt(i)-'0');
-            
-            if(k == 0)  {
-                lastIdx = i;
-                break;
-            }
+            stack.push(cur);
         }
+        
         //stack에 남아있는 수 더하기
-        for(int i: stack) {
-            sb.append(i);
-        }
-        
-        //System.out.println(sb.toString()+" "+k);
-        
-        //K개의 수만큼 삭제된 후 남은 숫자 더하기
-        if(stack.size() < ansLen) {
-            for(int i=lastIdx+1; i<numLen; i++) {
-                sb.append(number.charAt(i));
-            }
-        }
-        
-        //마지막경우
-        while(sb.length() > ansLen) {
-            sb.deleteCharAt(sb.length()-1);
+        for(int i=0; i<ansLen; i++) {
+            sb.append(stack.get(i));
         }
         
         return sb.toString();
